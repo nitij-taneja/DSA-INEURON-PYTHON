@@ -42,3 +42,11 @@ Output:
 +----------+
 Explanation: Joe is the only employee who earns more than his manager.'''
 
+
+import pandas as pd
+
+def find_employees(employee: pd.DataFrame) -> pd.DataFrame:
+  merged_df = employee.merge(employee, left_on='managerId', right_on='id', how='left', suffixes=('_employee', '_manager'))
+  result_df = merged_df[merged_df['salary_employee'] > merged_df['salary_manager']]
+  return result_df[['name_employee']].rename(columns={'name_employee': 'Employee'})
+
